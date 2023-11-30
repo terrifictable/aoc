@@ -1,0 +1,28 @@
+#!/bin/bash
+#!/bin/bash
+
+year=$1
+day=$2
+lang=$3
+
+input=$(curl -s -b $(cat .session) "https://adventofcode.com/${year}/day/${day}/input")
+if [ "$input" = "Puzzle inputs differ by user.  Please log in to get your puzzle input." ]; then
+    echo "Invalid session cookie, please update"
+    exit -1
+fi
+
+mkdir "${year}/${day}"
+if [ "$lang" = "py" ]; then
+    cp "./templates/template.py" "${year}/${day}/$(echo day_${day}.${lang} | tr '[:upper:]' '[:lower:]')"
+elif [ "$lang" = "c" ]; then
+    cp -ar "./templates/c/." "${year}/${day}"
+else
+    touch "${year}/${day}/$(echo day_${day}.${lang} | tr '[:upper:]' '[:lower:]')"
+fi
+
+curl -s -b $(cat .session) "https://adventofcode.com/${year}/day/${day}/input" -o "${year}/${day}/input.txt"
+curl -s -b $(cat .session) "https://adventofcode.com/${year}/day/${day}" -o "${year}/${day}/challange.html"
+sed -i "s/\/static/..\/..\/css/" "${year}/${day}/challange.html"
+
+# open vscode in folder for current day
+powershell -Command "code \"${year}/${day}/\""
