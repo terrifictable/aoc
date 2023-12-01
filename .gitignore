@@ -62,3 +62,5 @@ challange.html
 example*.txt
 input.txt
 bin/
+
+.ccls-cache/
