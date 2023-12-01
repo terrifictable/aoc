@@ -15,8 +15,8 @@ int main(void) {
     }
     
     const int buf_len = 1;
-    char *buf = calloc(buf_len, sizeof(char));
-    while (fread(buf, sizeof(char), buf_len, file)) {
+    char *buf = calloc(buf_len+1, sizeof(char));
+    for (int i=0; fgets(buf, buf_len, file) != NULL; i++) {
         printf("%s", buf);
     }
 
