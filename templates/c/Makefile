@@ -28,4 +28,3 @@ build: $(obj)
 clean:
 	@rm $(OUT)
 	@rm -r $(bin)/
-	@rm *.o

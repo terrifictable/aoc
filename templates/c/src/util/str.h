@@ -15,6 +15,9 @@ typedef struct _str_t {
 
 #define STR_INIT() { NULL, 0 }
 
+#define nstr(s) str_news(s)
+#define str_end(s) str_append(s, '\0', 1)
+
 str_t str_new();
 str_t str_news(char* s);
 void str_append(str_t *str, char* s, int len);
