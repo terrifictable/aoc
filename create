@@ -13,10 +13,8 @@ if [ "$input" = "Puzzle inputs differ by user.  Please log in to get your puzzle
     exit -1
 fi
 
-mkdir "${year}/${day}"
-if [ "$lang" = "py" ]; then
-    cp "./templates/template.py" "${year}/${day}/$(echo day_${day}.${lang} | tr '[:upper:]' '[:lower:]')"
-elif [ "$lang" = "c" ]; then
+mkdir -p "${year}/${day}"
+if [ "$lang" = "c" ]; then
     cp -ar "./templates/c/." "${year}/${day}"
 else
     touch "${year}/${day}/$(echo day_${day}.${lang} | tr '[:upper:]' '[:lower:]')"
