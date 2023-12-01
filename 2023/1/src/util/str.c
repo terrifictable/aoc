@@ -46,8 +46,38 @@ void str_appendf(str_t *str, char* fmt, ...) {
     str_append(str, buf, strlen(buf));
 }
 
-void str_free(str_t *str) {
+void str_end(str_t* str, ...) {
+    if (str->str != NULL) {
+        str_append(str, "\0", 1);
+    }
+
+    va_list args;
+    va_start(args, str);
+    
+    str_t *s;
+    while ((s = va_arg(args, str_t*)) != NULL) {
+        if (s->str != NULL) {
+            str_append(str, "\0", 1);
+        }
+    }
+
+    va_end(args);
+}
+
+void str_free(str_t *str, ...) {
     if (str->str != NULL) {
         free(str->str);
     }
+
+    va_list args;
+    va_start(args, str);
+    
+    str_t *s;
+    while ((s = va_arg(args, str_t*)) != NULL) {
+        if (s->str != NULL) {
+            free(s->str);
+        }
+    }
+
+    va_end(args);
 }

@@ -8,17 +8,7 @@
 #define INPUT "input.txt"
 
 
-const char* num_words[] = {
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-    "six",
-    "seven",
-    "eight",
-    "nine",
-};
+const char* num_words[] = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
 
 int main(void) {
@@ -35,6 +25,7 @@ int main(void) {
     char *buf = calloc(buf_len+1, sizeof(char));    
     for (int i=1; fgets(buf, buf_len, file) != NULL; i++) {
         char* p = buf;
+
         str_t nums = str_new();
         str_t nums_p2 = str_new();
         for (; *p != '\n' && *p != '\0'; p++) {
@@ -49,8 +40,7 @@ int main(void) {
                 }
             }
         }
-        str_end(&nums);
-        str_end(&nums_p2);
+        str_end(&nums, &nums_p2);
 
         char nstr[3] = {0};
         sprintf(nstr, "%c%c", *nums.str, *(nums.str + strlen(nums.str) - 1));
@@ -61,8 +51,7 @@ int main(void) {
         sprintf(nstr_p2, "%c%c", *nums_p2.str, *(nums_p2.str + strlen(nums_p2.str) - 1));
         num_p2 += atoi(nstr_p2);
 
-        str_free(&nums);
-        str_free(&nums_p2);
+        str_free(&nums, &nums_p2);
         memset(buf, 0, buf_len);
     }
 
