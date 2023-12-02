@@ -14,7 +14,7 @@ int main(void) {
         return 1;
     }
     
-    const int buf_len = 1;
+    const int buf_len = 128;
     char *buf = calloc(buf_len+1, sizeof(char));
     for (int i=0; fgets(buf, buf_len, file) != NULL; i++) {
         printf("%s", buf);
