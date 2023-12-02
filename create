@@ -1,31 +1,42 @@
 #!/bin/bash
 #!/bin/bash
 
-year=$1
-day=$2
-lang=$3
+if [ "$#" -ne 3 ]; then
+    year=$(date +%Y)
+    day=$(date +%d)
+    if [ "$#" -eq 1 ]; then
+        lang="$1"
+    else
+        lang="c"
+    fi
+else
+    year=$1
+    day=$2
+    lang=$3
+fi
 
-base="https://adventofcode.com/${year}/day/${day}"
+base="https://adventofcode.com/$year/day/$day"
+echo "Creating... $day/$year ($lang)"
 
-input=$(curl -s -b $(cat .session) "${base}/input")
+input=$(curl -s -b $(cat .session) "$base/input")
 if [ "$input" = "Puzzle inputs differ by user.  Please log in to get your puzzle input." ]; then
     echo "Invalid session cookie, please update"
     exit -1
 fi
 
-mkdir -p "${year}/${day}"
+mkdir -p "$year/$day"
 if [ "$lang" = "c" ]; then
-    cp -ar "./templates/c/." "${year}/${day}"
+    cp -ar "./templates/c/." "$year/$day"
 else
-    touch "${year}/${day}/$(echo day_${day}.${lang} | tr '[:upper:]' '[:lower:]')"
+    touch "$year/$day/$(echo day_$day.$lang | tr '[:upper:]' '[:lower:]')"
 fi
 
-curl -s -b $(cat .session) "${base}/input" -o "${year}/${day}/input.txt"
+curl -s -b $(cat .session) "$base/input" -o "$year/$day/input.txt"
 # curl -s -b $(cat .session) "${base}" -o "${year}/${day}/challange.html"
 # sed -i "s/\/static/..\/..\/css/" "${year}/${day}/challange.html"
 
 
 # open challange in firefox
-powershell -Command "start firefox \"${base}\""
+powershell -Command "start firefox \"$base\""
 # open vscode in folder for current day
-powershell -Command "code \"./${year}/${day}/\""
+powershell -Command "code \"./$year/$day/\""
