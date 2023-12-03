@@ -19,9 +19,13 @@ int main(void) {
     for (int i=0; fgets(buf, buf_len, file) != NULL; i++) {
         printf("%s", buf);
     }
-
-
     free(buf);
     fclose(file);
+
+    printf("===== PART 1 =====\n");
+    printf("> Solution: \n");
+    printf("===== PART 2 =====\n");
+    printf("> Solution: \n");
+
     return 0;
 }

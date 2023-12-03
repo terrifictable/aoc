@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 
 if [ "$#" -ne 3 ]; then
     year=$(date +%Y)
@@ -15,7 +14,7 @@ else
     lang=$3
 fi
 
-base="https://adventofcode.com/$year/day/$day"
+base="https://adventofcode.com/$year/day/$(date +%-d)"
 echo "Creating... $day/$year ($lang)"
 
 input=$(curl -s -b $(cat .session) "$base/input")
@@ -32,8 +31,6 @@ else
 fi
 
 curl -s -b $(cat .session) "$base/input" -o "$year/$day/input.txt"
-# curl -s -b $(cat .session) "${base}" -o "${year}/${day}/challange.html"
-# sed -i "s/\/static/..\/..\/css/" "${year}/${day}/challange.html"
 
 
 # open challange in firefox
